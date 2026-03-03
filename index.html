@@ -1,0 +1,689 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Talor — Marketplace for Talent</title>
+    <meta
+      name="description"
+      content="Talor is a social network + marketplace where everyday people share their talent, rebuild confidence, and turn what they love into real opportunity."
+    />
+    <meta property="og:title" content="Talor — Marketplace for Talent" />
+    <meta
+      property="og:description"
+      content="A social marketplace for individual talent, built for everyday people who put their dreams on hold and want to start again."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://talor.dev/" />
+    <meta name="theme-color" content="#0f172a" />
+
+    <style>
+      :root {
+        --bg: #060b1a;
+        --surface: #0d1530;
+        --surface-2: #101a3d;
+        --text: #e6ecff;
+        --muted: #9aa6cf;
+        --line: #1d2854;
+        --dark: #070d1f;
+        --primary: #22f5e3;
+        --primary-soft: #22f5e31f;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, "Helvetica Neue", Arial, sans-serif;
+        color: var(--text);
+        background: radial-gradient(circle at 50% -16%, #143569 0%, transparent 42%), radial-gradient(circle at 25% 28%, #0d1f48 0%, transparent 36%), linear-gradient(180deg, #040816 0%, #060b1a 45%, #050916 100%);
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+        position: relative;
+        overflow-x: hidden;
+      }
+
+      p,
+      li {
+        text-wrap: pretty;
+      }
+
+      body::before,
+      body::after {
+        content: "";
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: -1;
+      }
+
+      body::before {
+        background-image: radial-gradient(2px 2px at 12% 20%, rgba(255, 255, 255, 0.32) 40%, transparent 42%), radial-gradient(1.5px 1.5px at 26% 70%, rgba(255, 255, 255, 0.24) 40%, transparent 42%), radial-gradient(2px 2px at 74% 22%, rgba(255, 255, 255, 0.25) 40%, transparent 42%), radial-gradient(1.5px 1.5px at 88% 66%, rgba(255, 255, 255, 0.2) 40%, transparent 42%);
+      }
+
+      body::after {
+        background: radial-gradient(circle at 50% 18%, rgba(34, 245, 227, 0.2) 0%, rgba(34, 245, 227, 0) 32%);
+      }
+
+      img {
+        max-width: 100%;
+        display: block;
+      }
+
+      .container {
+        width: min(1120px, 92%);
+        margin: 0 auto;
+      }
+
+      .header {
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        background: color-mix(in srgb, #09112a 82%, transparent);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid color-mix(in srgb, var(--line) 85%, transparent);
+        box-shadow: 0 8px 24px rgba(2, 6, 20, 0.45);
+      }
+
+      .header-inner {
+        min-height: 68px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .logo {
+        margin: 0;
+        font-size: 1.15rem;
+        font-weight: 800;
+        letter-spacing: 0.02em;
+        color: #ffffff;
+      }
+
+      .nav {
+        display: flex;
+        gap: 1rem;
+      }
+
+      .nav a {
+        color: var(--muted);
+        text-decoration: none;
+        font-size: 0.92rem;
+        font-weight: 600;
+      }
+
+      .nav a:hover {
+        color: #d6fffb;
+      }
+
+      .hero {
+        padding: 5.2rem 0 4.2rem;
+      }
+
+      .hero-grid {
+        display: grid;
+        gap: 1.5rem;
+      }
+
+      .pill {
+        display: inline-flex;
+        width: fit-content;
+        border: 1px solid var(--line);
+        background: var(--primary-soft);
+        border-radius: 999px;
+        padding: 0.36rem 0.78rem;
+        color: #88efe6;
+        font-size: 0.78rem;
+        font-weight: 700;
+      }
+
+      .brand-mark {
+        width: 64px;
+        height: 64px;
+        margin: 0 0 0.6rem;
+        filter: drop-shadow(0 0 18px rgba(34, 245, 227, 0.45));
+        border-radius: 16px;
+        object-fit: cover;
+      }
+
+      .headline {
+        margin: 0.7rem 0 0;
+        font-size: clamp(2rem, 5.3vw, 3.45rem);
+        line-height: 1.04;
+        letter-spacing: -0.035em;
+        max-width: 16ch;
+      }
+
+      .subtitle {
+        margin: 1rem 0 0;
+        color: var(--muted);
+        max-width: 62ch;
+        font-size: clamp(1rem, 2.1vw, 1.14rem);
+        line-height: 1.75;
+      }
+
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        margin-top: 1.35rem;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.86rem 1.15rem;
+        border-radius: 0.85rem;
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 0.94rem;
+        border: 1px solid transparent;
+        transition: 0.2s ease;
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, #20ddcf 0%, #1bb8ff 100%);
+        color: #031226;
+        box-shadow: 0 0 0 1px rgba(34, 245, 227, 0.22), 0 12px 28px rgba(34, 245, 227, 0.28);
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-1px) scale(1.01);
+      }
+
+      .btn-secondary {
+        background: #0d1735;
+        color: #dce5ff;
+        border-color: var(--line);
+      }
+
+      .hero-visual {
+        border: 1px solid var(--line);
+        border-radius: 1.25rem;
+        overflow: hidden;
+        background: #09122a;
+        box-shadow: 0 20px 44px rgba(2, 8, 26, 0.54);
+        min-height: clamp(420px, 58vw, 680px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 1.25rem;
+      }
+
+      .hero-visual img {
+        width: min(430px, 100%);
+        height: auto;
+        object-fit: contain;
+        border-radius: 1rem;
+        filter: saturate(1.08) contrast(1.06);
+      }
+
+      .stats {
+        display: grid;
+        gap: 0.8rem;
+        margin-top: 1.2rem;
+      }
+
+      .stat {
+        border: 1px solid var(--line);
+        border-radius: 0.95rem;
+        padding: 0.9rem;
+        background: linear-gradient(180deg, var(--surface) 0%, var(--surface-2) 100%);
+        box-shadow: 0 12px 28px rgba(3, 10, 29, 0.5);
+      }
+
+      .stat strong {
+        display: block;
+        font-size: 1.15rem;
+      }
+
+      .stat span {
+        font-size: 0.88rem;
+        color: var(--muted);
+      }
+
+      .section {
+        padding: 2.8rem 0;
+      }
+
+      .section + .section {
+        margin-top: 0.8rem;
+      }
+
+      .section-title {
+        margin: 0;
+        font-size: clamp(1.45rem, 3.8vw, 2.05rem);
+        line-height: 1.2;
+        letter-spacing: -0.02em;
+      }
+
+      .section-lead {
+        margin: 0.58rem 0 0;
+        color: var(--muted);
+        max-width: 72ch;
+        font-size: 1.04rem;
+        line-height: 1.8;
+      }
+
+      .long-intro {
+        margin: 0.9rem 0 0;
+        max-width: 74ch;
+        color: var(--muted);
+        font-size: 1.01rem;
+        line-height: 1.8;
+      }
+
+      .feature-grid {
+        display: grid;
+        gap: 1rem;
+        margin-top: 1.5rem;
+      }
+
+      .preview-grid {
+        display: grid;
+        gap: 1rem;
+        margin-top: 1.3rem;
+      }
+
+      .preview-card {
+        border: 1px solid var(--line);
+        border-radius: 1rem;
+        overflow: hidden;
+        background: linear-gradient(180deg, var(--surface) 0%, var(--surface-2) 100%);
+        box-shadow: 0 12px 24px rgba(3, 10, 30, 0.52);
+      }
+
+      .preview-card img {
+        width: 100%;
+        height: 100%;
+        min-height: 420px;
+        max-height: 620px;
+        object-fit: contain;
+        background: #09122a;
+      }
+
+      .feature {
+        border: 1px solid var(--line);
+        background: linear-gradient(180deg, var(--surface) 0%, var(--surface-2) 100%);
+        border-radius: 1rem;
+        padding: 1rem;
+        box-shadow: 0 12px 24px rgba(3, 10, 30, 0.52);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      .feature:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 16px 30px rgba(10, 28, 65, 0.56);
+      }
+
+      .feature h3 {
+        margin: 0;
+        font-size: 1.04rem;
+      }
+
+      .feature p {
+        margin: 0.5rem 0 0;
+        color: var(--muted);
+      }
+
+      .audience {
+        display: grid;
+        gap: 1rem;
+        margin-top: 1.5rem;
+      }
+
+      .audience-card {
+        border: 1px solid var(--line);
+        border-radius: 1rem;
+        background: linear-gradient(180deg, var(--surface) 0%, var(--surface-2) 100%);
+        overflow: hidden;
+        box-shadow: 0 14px 30px rgba(3, 10, 30, 0.52);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      .audience-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 20px 38px rgba(10, 28, 65, 0.58);
+      }
+
+      .audience-card img {
+        border-bottom: 1px solid var(--line);
+        width: 100%;
+        height: 520px;
+        object-fit: contain;
+        background: #09122a;
+      }
+
+      .audience-content {
+        padding: 1rem;
+      }
+
+      .audience-card h3 {
+        margin: 0;
+        font-size: 1.08rem;
+      }
+
+      .audience-card p {
+        margin: 0.5rem 0 0;
+        color: var(--muted);
+      }
+
+      .audience-list {
+        margin: 0.7rem 0 0;
+        padding-left: 1.05rem;
+        color: var(--muted);
+      }
+
+      .audience-list li + li {
+        margin-top: 0.35rem;
+      }
+
+      .cta {
+        padding: 3.2rem 0 3.8rem;
+      }
+
+      .cta-box {
+        border: 1px solid var(--line);
+        border-radius: 1.1rem;
+        padding: 1.25rem;
+        background: linear-gradient(135deg, #0f1734 0%, #12204c 62%, #1a2c66 100%);
+        display: grid;
+        gap: 0.9rem;
+        box-shadow: 0 16px 36px rgba(3, 10, 30, 0.58);
+      }
+
+      .cta-box h2 {
+        margin: 0;
+        font-size: clamp(1.35rem, 3.6vw, 1.9rem);
+        line-height: 1.2;
+      }
+
+      .cta-box p {
+        margin: 0.35rem 0 0;
+        color: var(--muted);
+      }
+
+      footer {
+        border-top: 1px solid var(--line);
+        padding: 1.2rem 0 2rem;
+        background: rgba(3, 8, 22, 0.45);
+      }
+
+      .footer-inner {
+        color: var(--muted);
+        font-size: 0.9rem;
+        display: flex;
+        justify-content: space-between;
+        gap: 0.8rem;
+        flex-wrap: wrap;
+      }
+
+      .footer-inner a {
+        color: var(--muted);
+        text-decoration: none;
+      }
+
+      .fade {
+        opacity: 0;
+        transform: translateY(10px);
+        transition: opacity 0.58s ease, transform 0.58s ease;
+      }
+
+      .fade.show {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      @media (min-width: 840px) {
+        .hero-grid {
+          grid-template-columns: 1.05fr 0.95fr;
+          align-items: center;
+          gap: 2rem;
+        }
+
+        .stats {
+          grid-template-columns: repeat(3, 1fr);
+        }
+
+        .feature-grid {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        .preview-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+
+        .audience {
+          justify-items: center;
+        }
+
+        .audience-card {
+          width: min(560px, 100%);
+        }
+
+        .audience {
+          grid-template-columns: 1fr 1fr;
+        }
+
+        .cta-box {
+          grid-template-columns: 1fr auto;
+          align-items: center;
+          padding: 1.45rem;
+        }
+      }
+
+      @media (max-width: 620px) {
+        .nav {
+          display: none;
+        }
+
+        .hero-visual {
+          min-height: 520px;
+          padding: 0.9rem;
+        }
+
+        .hero-visual img {
+          width: min(360px, 100%);
+        }
+
+        .audience-card img {
+          height: 460px;
+        }
+
+        .preview-card img {
+          min-height: 380px;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          animation: none !important;
+          transition: none !important;
+          scroll-behavior: auto !important;
+        }
+
+        .fade {
+          opacity: 1;
+          transform: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="header">
+      <div class="container header-inner">
+        <h1 class="logo">Talor ✦</h1>
+        <nav class="nav" aria-label="Primary">
+          <a href="#about">About</a>
+          <a href="#creators">For Everyone</a>
+          <a href="#explorers">For Explorers</a>
+          <a href="#download">Download</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="container hero-grid">
+          <div class="fade">
+            <img class="brand-mark" src="assets/talor-app-icon.png" alt="Talor app icon" loading="eager" />
+            <span class="pill">Social Network + Marketplace</span>
+            <p class="headline">Turn what you love into opportunity.</p>
+            <p class="subtitle">A social marketplace for everyday people who put their dreams on hold and are ready to start again.</p>
+            <div class="hero-actions">
+              <a class="btn btn-primary" href="https://example.com" aria-label="Download on the App Store">Download on the App Store</a>
+              <a class="btn btn-secondary" href="#about" aria-label="Learn what Talor is">What is Talor?</a>
+            </div>
+          </div>
+
+          <div class="fade">
+            <div class="hero-visual">
+              <img src="assets/Home.jpeg" alt="Talor home screen" loading="eager" />
+            </div>
+          </div>
+        </div>
+
+        <div class="container stats">
+          <div class="stat fade">
+            <strong>Post Works</strong>
+            <span>Show services, skills, and outputs in short-form cards.</span>
+          </div>
+          <div class="stat fade">
+            <strong>Build Trust</strong>
+            <span>Grow followers and reputation through consistent quality.</span>
+          </div>
+          <div class="stat fade">
+            <strong>Monetize Talent</strong>
+            <span>Convert discovery into real transactions and repeat buyers.</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="about">
+        <div class="container fade">
+          <h2 class="section-title">What is Talor?</h2>
+          <p class="section-lead">Talor brings social discovery and simple buying together in one place, so people are seen for what they can actually do instead of how loud they are online. Whether you are returning to an old passion, testing a side skill after work, or finally sharing something you have kept to yourself, Talor helps you show it clearly and turn it into opportunity.</p>
+          <p class="long-intro">At its core, Talor is built on a simple belief: everyone has talent, but everyday life often pushes dreams to the background. Talor gives ordinary people a practical way to start again—post Works, build trust step by step, find people who value what you do, and grow confidence as your talent creates real momentum.</p>
+
+          <div class="feature-grid">
+            <article class="feature fade">
+              <h3>Discovery that feels social</h3>
+              <p>People find you through your work, not just a profile page.</p>
+            </article>
+            <article class="feature fade">
+              <h3>Trust-first creator identity</h3>
+              <p>Build trust over time with clear work history and follower signals.</p>
+            </article>
+            <article class="feature fade">
+              <h3>Simple path to purchase</h3>
+              <p>When someone likes what they see, they can support or buy in a few taps.</p>
+            </article>
+          </div>
+
+          <div class="preview-grid">
+            <article class="preview-card fade">
+              <img src="assets/peeks.jpeg" alt="Talor peeks screen" loading="lazy" />
+            </article>
+            <article class="preview-card fade">
+              <img src="assets/talor-loading.jpg" alt="Talor loading experience" loading="lazy" />
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="creators">
+        <div class="container fade">
+          <h2 class="section-title">For Everyone</h2>
+          <p class="section-lead">You do not need to call yourself a creator to belong here. If you have a skill, a service, or something meaningful to share, Talor helps you package it clearly and take your first step.</p>
+          <div class="audience">
+            <article class="audience-card fade">
+              <img src="assets/public_profile.jpeg" alt="Talor public profile screen" loading="lazy" />
+              <div class="audience-content">
+                <h3>Show, price, and sell your work</h3>
+                <p>Turn the talent you once kept on hold into simple, clear offers people can understand and support.</p>
+                <ul class="audience-list">
+                  <li>Share skills, services, and personal projects as Works</li>
+                  <li>Start small with clear pricing and scope</li>
+                  <li>Build confidence through follows and repeat support</li>
+                </ul>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="explorers">
+        <div class="container fade">
+          <h2 class="section-title">For Explorers</h2>
+          <p class="section-lead">Discover talented people faster, follow the ones whose work resonates with you, and support them directly with confidence. Talor is designed to make quality easy to spot and action easy to take.</p>
+          <div class="audience">
+            <article class="audience-card fade">
+              <img src="assets/market.jpeg" alt="Talor market screen" loading="lazy" />
+              <div class="audience-content">
+                <h3>Discover and buy with confidence</h3>
+                <p>See real work first, then follow and buy without leaving the flow.</p>
+                <ul class="audience-list">
+                  <li>Browse useful Works in short, easy cards</li>
+                  <li>Follow talented people and never miss new drops</li>
+                  <li>Support talent with direct, simple checkout</li>
+                </ul>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="cta" id="download">
+        <div class="container">
+          <div class="cta-box fade">
+            <div>
+              <h2>Built for ordinary people with extraordinary potential.</h2>
+              <p>Download Talor and join a community where paused dreams can start moving again, one work at a time.</p>
+            </div>
+            <a class="btn btn-primary" href="https://example.com" aria-label="Download Talor on the App Store">Download on the App Store</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container footer-inner">
+        <span>© <span id="year"></span> Talor. All rights reserved.</span>
+        <span>
+          <a href="mailto:hello@talor.dev">hello@talor.dev</a>
+        </span>
+      </div>
+    </footer>
+
+    <script>
+      (function () {
+        var animated = document.querySelectorAll(".fade");
+        var observer = new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (entry) {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("show");
+                observer.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.14 }
+        );
+
+        animated.forEach(function (node) {
+          observer.observe(node);
+        });
+
+        var year = document.getElementById("year");
+        if (year) year.textContent = new Date().getFullYear();
+      })();
+    </script>
+  </body>
+</html>
