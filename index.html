@@ -49,6 +49,11 @@
         -webkit-font-smoothing: antialiased;
       }
 
+      p,
+      li {
+        text-wrap: pretty;
+      }
+
       img {
         max-width: 100%;
         display: block;
@@ -186,6 +191,12 @@
         box-shadow: 0 18px 44px rgba(2, 8, 30, 0.56);
       }
 
+      .showcase-note {
+        margin: 0.7rem 0 0;
+        color: var(--muted);
+        font-size: 0.88rem;
+      }
+
       .phone-frame {
         border: 1px solid #24366e;
         border-radius: 1.1rem;
@@ -246,6 +257,30 @@
 
       .shots {
         margin-top: 1.35rem;
+        display: grid;
+        gap: 1rem;
+      }
+
+      .peeks-cluster {
+        margin-top: 1rem;
+        border: 1px solid var(--line);
+        border-radius: 1rem;
+        background: linear-gradient(180deg, var(--surface) 0%, var(--surface-2) 100%);
+        padding: 1rem;
+      }
+
+      .peeks-title {
+        margin: 0;
+        font-size: 1rem;
+      }
+
+      .peeks-subtitle {
+        margin: 0.35rem 0 0.9rem;
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+
+      .peeks-grid {
         display: grid;
         gap: 1rem;
       }
@@ -396,6 +431,10 @@
           grid-template-columns: repeat(2, minmax(0, 1fr));
         }
 
+        .peeks-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
         .value-grid {
           grid-template-columns: repeat(3, minmax(0, 1fr));
         }
@@ -440,6 +479,7 @@
           <a href="#about">About</a>
           <a href="#screens">Screens</a>
           <a href="#value">Why Talor</a>
+          <a href="#legal">Legal</a>
           <a href="#download">Download</a>
         </nav>
       </div>
@@ -452,7 +492,7 @@
             <img class="mark" src="assets/talor-app-icon.png" alt="Talor app icon" loading="eager" />
             <span class="pill">Social Network + Marketplace</span>
             <p class="headline">Turn what you love into opportunity.</p>
-            <p class="subtitle">A social marketplace for individual talent. Talor is for everyday people who put their dreams on hold, and are finally ready to start again with something they can share, grow, and monetize.</p>
+            <p class="subtitle">A social marketplace for individual talent. Talor is for everyday people who put their dreams on hold and are finally ready to start again with something they can share, grow, and monetize.</p>
             <div class="actions">
               <a class="btn btn-primary" href="https://example.com" aria-label="Download on the App Store">Download on the App Store</a>
               <a class="btn btn-secondary" href="#about" aria-label="Learn what Talor is">What is Talor?</a>
@@ -462,9 +502,10 @@
           <div class="fade">
             <div class="showcase">
               <div class="phone-frame">
-                <img src="assets/Home.jpeg" alt="Talor home screen" loading="eager" />
+                <img src="assets/peeks2.jpeg" alt="Talor peeks screen" loading="eager" />
               </div>
             </div>
+            <p class="showcase-note">Previewing the Peeks experience</p>
           </div>
         </div>
 
@@ -494,8 +535,8 @@
 
       <section class="section" id="screens">
         <div class="container fade">
-          <h2 class="section-title">Real product screens</h2>
-          <p class="section-lead">Talor is designed around short-form discovery and easy action. Every screen is focused on helping people find talent faster and support it without friction.</p>
+          <h2 class="section-title">App Screens</h2>
+          <p class="section-lead">Talor is designed around short-form discovery and clear next steps. Each screen helps people find talent faster and support it with less friction.</p>
 
           <div class="shots">
             <article class="shot fade">
@@ -517,26 +558,32 @@
                 <span>Browse relevant works and support people directly.</span>
               </div>
             </article>
+          </div>
 
-            <article class="shot fade">
-              <div class="phone-frame">
-                <img src="assets/peeks2.jpeg" alt="Talor peeks screen" loading="lazy" />
-              </div>
-              <div class="shot-caption">
-                <strong>Peeks</strong>
-                <span>Catch quick previews and discover hidden potential.</span>
-              </div>
-            </article>
+          <div class="peeks-cluster fade">
+            <h3 class="peeks-title">Peeks</h3>
+            <p class="peeks-subtitle">Quick discovery moments are grouped as one product experience.</p>
+            <div class="peeks-grid">
+              <article class="shot fade">
+                <div class="phone-frame">
+                  <img src="assets/peeks.jpeg" alt="Talor peeks feed screen" loading="lazy" />
+                </div>
+                <div class="shot-caption">
+                  <strong>Peeks Feed</strong>
+                  <span>Scan short previews and find people worth following.</span>
+                </div>
+              </article>
 
-            <article class="shot fade">
-              <div class="phone-frame">
-                <img src="assets/talor-loading.jpg" alt="Talor loading screen" loading="lazy" />
-              </div>
-              <div class="shot-caption">
-                <strong>Brand Experience</strong>
-                <span>Calm, modern, and trustworthy from first open.</span>
-              </div>
-            </article>
+              <article class="shot fade">
+                <div class="phone-frame">
+                  <img src="assets/peeks-detail.jpeg" alt="Talor peeks detail screen" loading="lazy" />
+                </div>
+                <div class="shot-caption">
+                  <strong>Peeks Detail</strong>
+                  <span>Go deeper into each peek and turn interest into action.</span>
+                </div>
+              </article>
+            </div>
           </div>
         </div>
       </section>
