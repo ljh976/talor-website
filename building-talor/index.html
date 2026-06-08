@@ -1,0 +1,424 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Talor: Product & Engineering Overview</title>
+    <meta
+      name="description"
+      content="Product and engineering overview of Talor: thesis, product scope, ownership, and high-level build approach."
+    />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="googlebot" content="noindex, nofollow" />
+    <meta property="og:title" content="Talor: Product & Engineering Overview" />
+    <meta
+      property="og:description"
+      content="A concise product and engineering overview of Talor, built and released end-to-end by one engineer."
+    />
+    <meta property="og:type" content="article" />
+    <meta name="theme-color" content="#070d1f" />
+
+    <style>
+      :root {
+        --bg: #050914;
+        --bg-soft: #0a1330;
+        --surface: #0e1838;
+        --surface-2: #101d46;
+        --line: #1d2b5b;
+        --text: #e9eeff;
+        --muted: #9aa7cf;
+        --accent: #22f5e3;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        color: var(--text);
+        background:
+          radial-gradient(circle at 18% -8%, rgba(34, 245, 227, 0.15), transparent 34%),
+          radial-gradient(circle at 88% 10%, rgba(67, 120, 255, 0.24), transparent 34%),
+          linear-gradient(180deg, #040814, #050914 50%, #040711);
+        line-height: 1.68;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      p,
+      li {
+        text-wrap: pretty;
+      }
+
+      .container {
+        width: min(920px, 92%);
+        margin: 0 auto;
+      }
+
+      .hero {
+        padding: 4.5rem 0 2.2rem;
+      }
+
+      .pill {
+        display: inline-flex;
+        border: 1px solid var(--line);
+        background: rgba(34, 245, 227, 0.1);
+        color: #93f7ee;
+        border-radius: 999px;
+        padding: 0.32rem 0.72rem;
+        font-size: 0.78rem;
+        font-weight: 700;
+      }
+
+      h1 {
+        margin: 0.9rem 0 0;
+        font-size: clamp(1.9rem, 5.2vw, 3.1rem);
+        line-height: 1.08;
+        letter-spacing: -0.02em;
+      }
+
+      .subheadline {
+        margin: 0.85rem 0 0;
+        color: var(--muted);
+        font-size: clamp(1rem, 2vw, 1.12rem);
+      }
+
+      .summary {
+        margin: 1rem 0 0;
+        max-width: 74ch;
+      }
+
+      .actions {
+        margin-top: 1.25rem;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        border-radius: 0.85rem;
+        padding: 0.82rem 1.12rem;
+        font-size: 0.92rem;
+        font-weight: 700;
+        border: 1px solid transparent;
+      }
+
+      .btn-primary {
+        color: #041527;
+        background: linear-gradient(135deg, #22f5e3 0%, #3ec3ff 100%);
+        box-shadow: 0 12px 28px rgba(34, 245, 227, 0.25);
+      }
+
+      .btn-secondary {
+        color: #d7e1ff;
+        border-color: var(--line);
+        background: #0c1737;
+      }
+
+      .small-note {
+        margin-top: 0.85rem;
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+
+      .section {
+        padding: 1.6rem 0;
+      }
+
+      h2 {
+        margin: 0;
+        font-size: clamp(1.3rem, 3.3vw, 1.9rem);
+        line-height: 1.2;
+        letter-spacing: -0.02em;
+      }
+
+      .section p {
+        margin: 0.8rem 0 0;
+        color: #dbe5ff;
+      }
+
+      .facts-grid {
+        margin-top: 1rem;
+        display: grid;
+        gap: 0.8rem;
+      }
+
+      .fact {
+        border: 1px solid var(--line);
+        border-radius: 0.95rem;
+        padding: 0.9rem;
+        background: linear-gradient(180deg, var(--surface) 0%, var(--surface-2) 100%);
+      }
+
+      .fact strong {
+        display: block;
+        font-size: 0.88rem;
+        color: #b9c8f7;
+        letter-spacing: 0.02em;
+        text-transform: uppercase;
+      }
+
+      .fact span {
+        display: block;
+        margin-top: 0.34rem;
+      }
+
+      .list-card {
+        margin-top: 1rem;
+        border: 1px solid var(--line);
+        border-radius: 1rem;
+        padding: 1rem 1rem 0.9rem;
+        background: linear-gradient(180deg, var(--surface) 0%, var(--surface-2) 100%);
+      }
+
+      .list-card ul {
+        margin: 0;
+        padding-left: 1.2rem;
+        columns: 1;
+      }
+
+      .list-card li {
+        margin: 0 0 0.52rem;
+      }
+
+      .closing {
+        margin-top: 0.8rem;
+      }
+
+      .footer {
+        border-top: 1px solid var(--line);
+        margin-top: 2rem;
+        padding: 1rem 0 2rem;
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+
+      .footer a {
+        color: var(--muted);
+        text-decoration: none;
+      }
+
+      @media (min-width: 760px) {
+        .facts-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .list-card ul {
+          columns: 2;
+          column-gap: 2rem;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          animation: none !important;
+          transition: none !important;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <main>
+      <section class="hero">
+        <div class="container">
+          <span class="pill">Talor: Product & Engineering Overview</span>
+          <h1>Building Talor from 0 to App Store</h1>
+          <p class="subheadline">Talor is a mobile marketplace and social platform for individual talent, services, requests, offers, and personal commerce.</p>
+          <p class="summary">
+            I built Talor end-to-end as the sole engineer, owning product requirements, iOS development, backend APIs, database modeling, media storage, payments, QA,
+            release workflows, and App Store deployment.
+          </p>
+          <div class="actions">
+            <a class="btn btn-primary" href="https://apps.apple.com/us/app/talor-talent-marketplace/id6760213017">Live App</a>
+            <a class="btn btn-secondary" href="../assets/Resume_Junho%20Lee_PE.pdf">Resume</a>
+          </div>
+          <p class="small-note">Sensitive implementation details are intentionally omitted for security reasons.</p>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <h2>Quick Facts</h2>
+          <div class="facts-grid">
+            <article class="fact"><strong>Role</strong><span>Sole Engineer / Product Builder</span></article>
+            <article class="fact"><strong>Product</strong><span>Mobile marketplace and social platform</span></article>
+            <article class="fact"><strong>Scope</strong><span>Product, iOS, backend, payments, media, QA, release</span></article>
+            <article class="fact"><strong>Stack</strong><span>SwiftUI, Node.js, Supabase/PostgreSQL, AWS S3, Stripe, Apple Pay, Railway, TestFlight, App Store Connect</span></article>
+            <article class="fact"><strong>AI Workflow</strong><span>Claude, ChatGPT, GitHub Copilot, AI-assisted development</span></article>
+            <article class="fact"><strong>Status</strong><span>Released to App Store</span></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <h2>Product Thesis</h2>
+          <p>
+            Talor was built around the belief that individual profiles can become personal storefronts, not only for physical goods, but for skills, services, requests,
+            offers, negotiation, and social commerce.
+          </p>
+          <p>
+            Most commerce platforms start with the object being sold: a product, a shop, or a formal business. Talor starts with the person. The goal is to help individuals
+            make their abilities discoverable, requestable, negotiable, and commercially useful.
+          </p>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <h2>Why I Built Talor</h2>
+          <p>
+            Many people give up things they are good at or passionate about in favor of practical and conventional choices. Someone may have wanted to become a chef but became
+            an engineer. Someone may have loved history but became a doctor or lawyer. Others may have a useful skill or personal talent but have never had a simple way to test
+            whether that ability has economic value.
+          </p>
+          <p>Talor was created for those people.</p>
+          <p>The product gives individuals a place to present their abilities, price their work, and potentially earn from what they already know, enjoy, or do well.</p>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <h2>Why Existing Platforms Are Not Enough</h2>
+          <p>
+            Large social platforms increasingly support commerce, but most of them still focus on selling products. Talor was designed around a broader idea: personal capability
+            as commerce.
+          </p>
+          <p>
+            A user should be able to sell a cooking skill, creative service, technical help, handmade item, local service, or something highly personal that does not fit neatly
+            into a standard e-commerce category.
+          </p>
+          <p>
+            Talor supports listings, requests, offers, negotiation, photos, social activity, and flexible transaction formats such as pickup, meetup, online delivery, and future
+            shipping flows.
+          </p>
+          <p>
+            The goal is for each profile to function almost like a personal store: a place to display what someone can do, what they sell, what they are open to making, and how
+            others can request or negotiate around that value.
+          </p>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <h2>Why Not Build a Viral AI Wrapper?</h2>
+          <p>
+            I considered the AI app trend, but I was skeptical of the durability of many thin AI utility products. If a user can upload the same image or prompt to a
+            general-purpose AI assistant and get a similar result, a standalone app needs a much stronger reason to exist.
+          </p>
+          <p>
+            Instead of building a short-term AI wrapper, I wanted to build toward a platform that could accumulate its own users, listings, relationships, marketplace activity,
+            and unique human-generated data.
+          </p>
+          <p>
+            LLMs are powerful, but they cannot fully replace data and resources that do not exist online or are not accessible to the model. A user cannot ask an LLM to buy a
+            specific grandmother's homemade soup if that offering is not listed anywhere. A user cannot discover a neighbor's handmade accessory, a local service, or an
+            individual's unique skill if that data has never been structured or made searchable.
+          </p>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <h2>What I Built</h2>
+          <div class="list-card">
+            <ul>
+              <li>Native iOS app</li>
+              <li>Backend API workflows</li>
+              <li>User profiles</li>
+              <li>Marketplace listings</li>
+              <li>Talent/service offerings</li>
+              <li>Requests and offers</li>
+              <li>Messaging</li>
+              <li>Social feed and discovery workflows</li>
+              <li>Media upload and storage</li>
+              <li>Payment integration</li>
+              <li>Seller onboarding</li>
+              <li>Account lifecycle workflows</li>
+              <li>Moderation-related workflows</li>
+              <li>QA and release workflows</li>
+              <li>TestFlight and App Store deployment</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <h2>AI-Assisted Development</h2>
+          <p>
+            Talor was built with heavy use of AI-assisted development workflows. I used Claude, ChatGPT, GitHub Copilot, and Copilot-style tools to accelerate planning,
+            implementation, debugging, refactoring, UI iteration, test scenario generation, and release checklist thinking.
+          </p>
+          <p>
+            AI was an acceleration layer, not a replacement for engineering judgment. I retained ownership over product decisions, architecture decisions, implementation tradeoffs,
+            review decisions, and release decisions. I manually reviewed high-risk areas such as payments, authentication boundaries, data integrity, release behavior, and
+            user-facing workflows.
+          </p>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <h2>What I Learned</h2>
+          <p>Building Talor taught me much more than how to ship an app.</p>
+          <p>
+            It gave me a full 0-to-1 product experience. I had to think through the architecture of the app, connect mobile and backend systems, make infrastructure decisions,
+            consider operating costs, and take responsibility for the product from idea to release.
+          </p>
+          <p>
+            The hardest lessons were not purely technical. I learned how difficult marketplace cold start is. A product can look polished and function correctly, but without
+            users, liquidity, and trust, the product still has no real value.
+          </p>
+          <p>
+            I also learned that attracting sellers is not as simple as offering lower fees. Sellers already have habits, existing platforms, and a strong resistance to trying a
+            new app. User acquisition, positioning, marketing, and image-making are not secondary details. They are part of the product.
+          </p>
+          <p>
+            Shipping features is only one part of building a product. The larger challenge is creating a system where users understand the value, trust the platform, and have a
+            reason to come back.
+          </p>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <h2>Security and Disclosure Note</h2>
+          <p>
+            For security reasons, this overview intentionally omits sensitive implementation details, including API structure, authentication/session handling, payment validation
+            logic, database schemas, internal moderation logic, infrastructure configuration, and other details that could expose operational or security risk.
+          </p>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <p class="closing">
+            Talor is my attempt to build a platform around individual talent rather than only formal businesses, commodity products, or short-lived AI utilities.
+          </p>
+          <p class="closing">
+            At its core, Talor is about turning individual ability into something discoverable, requestable, negotiable, and commercially useful.
+          </p>
+          <div class="actions">
+            <a class="btn btn-primary" href="https://apps.apple.com/us/app/talor-talent-marketplace/id6760213017">Live App</a>
+            <a class="btn btn-secondary" href="../assets/Resume_Junho%20Lee_PE.pdf">Resume</a>
+            <a class="btn btn-secondary" href="https://www.linkedin.com/in/junho-l/">LinkedIn</a>
+            <a class="btn btn-secondary" href="https://github.com/LJH976">GitHub</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container">
+        <span>Contact: <a href="mailto:LEE.JUNHO195@GMAIL.COM">LEE.JUNHO195@GMAIL.COM</a></span>
+      </div>
+    </footer>
+  </body>
+</html>
